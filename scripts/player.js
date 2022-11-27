@@ -3,9 +3,10 @@ const game = document.querySelector("#gameBody");
 
 
 const middle = window.innerHeight / 2;
+const bottom = (window.innerHeight * 2) / 3;
 let velocity = .005;   //outta my ass no jutsu
 let gravityConstant = .01807;
-let dinoHeight = middle;
+let dinoHeight = 200;
 let falling;
 let jumpingForce;
 let jumping;
@@ -30,7 +31,7 @@ const gravity = () => {
         velocity += gravityConstant;
     }
 
-    if (dinoDimensions.bottom >= window.innerHeight) {
+    if (dinoDimensions.bottom >= (window.innerHeight * 2) / 3) {
         clearInterval(falling);
     }
 }
@@ -61,15 +62,18 @@ falling = setInterval(gravity, 1);
 
 
 game.addEventListener("pointerdown", () => {
+    const dinoDimensions = dinosaur.getBoundingClientRect();
 
-    if (jumping) {
-        clearInterval(jumping);
+
+    if (dinoDimensions.bottom >= bottom) {
+        if (jumping) {
+            clearInterval(jumping);
+        }
+
+        jumpingForce = 2.5;
+        clearInterval(falling);
+        jumping = setInterval(jump, 1);
     }
-
-    jumpingForce = 1.5;
-    clearInterval(falling);
-    jumping = setInterval(jump, 1);
-
 });
 
 
