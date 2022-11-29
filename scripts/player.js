@@ -76,5 +76,16 @@ game.addEventListener("pointerdown", () => {
     }
 });
 
+game.addEventListener("pointerup", () => {
+
+    clearInterval(jumping);
+
+    if(falling){
+        clearInterval(falling);
+    }
+    
+    falling = setInterval(gravity, 1);
+})
+
 
 
